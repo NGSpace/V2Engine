@@ -1,12 +1,33 @@
+#!/bin/bash
+
 echo ""
 echo ""
-echo "Installing V2Engine fo linux (and maybe mac, idk if this will work so...)"
+echo "Install V2Engine (For Unix)"
 echo ""
 echo ""
 
-if [ ! -d ~/bin ]; then
-  echo "~/bin does not exist, creating it."
-  mkdir ~/bin
+INSTALL_DIR="$HOME/bin"
+
+read -p "Choose install location [default: $INSTALL_DIR]: " choice
+if [ "$choice" != "" ]; then
+  INSTALL_DIR="$choice"
+  #why are you doing this to me, bash? I was actually liking bash until I encountered this shit...
+  if [ "${INSTALL_DIR:0:2}" == "~/" ]; then
+    INSTALL_DIR="${HOME}${INSTALL_DIR:1}"
+  fi
+fi
+echo "Install directory: $INSTALL_DIR"
+echo ""
+
+
+if [ ! -d "$INSTALL_DIR" ]; then
+  read -e -p "Directory 	$INSTALL_DIR does not exist, make it? [y/N]: " choice
+  if [ "$choice" == 'y' ] || [ "$choice" == 'Y' ]; then
+    mkdir "$INSTALL_DIR"
+  else
+    echo "Cancelling installation."
+    exit 1
+  fi
 fi
 
 if [ -d V2EngineTempInstallFolder ]; then
@@ -17,19 +38,28 @@ mkdir V2EngineTempInstallFolder
 cd V2EngineTempInstallFolder
 
 echo ""
-echo "Downloading asset #0"
-echo ""
+echo "Downloading asset #0:"
 
 curl -H "Accept: application/vnd.github.v3+json"   https://api.github.com/repos/NGSpace/V2Engine/releases/latest     | jq .assets[0].browser_download_url     | xargs wget -qi -
 
 echo ""
-echo "Downloading asset #1"
-echo ""
+echo "Downloading asset #1:"
 
 curl -H "Accept: application/vnd.github.v3+json"   https://api.github.com/repos/NGSpace/V2Engine/releases/latest     | jq .assets[1].browser_download_url     | xargs wget -qi -
 
+echo ""
+echo ""
+echo "Finished downloading assets, installing."
+
 cd ..
-cp V2EngineTempInstallFolder/v2engine.jar ~/bin/v2engine.jar
-cp V2EngineTempInstallFolder/v2engine.sh ~/bin/v2engine
-chmod +x ~/bin/v2engine.sh
+cp V2EngineTempInstallFolder/v2engine.jar $INSTALL_DIR/v2engine.jar
+cp V2EngineTempInstallFolder/v2engine.sh $INSTALL_DIR/v2engine
+chmod +x $INSTALL_DIR/v2engine
+echo "Finished asset installation, removing temp folder."
 rm -r V2EngineTempInstallFolder
+
+echo ""
+echo ""
+echo "Finished V2Engine installation."
+echo "Run v2engine --help for a list of parameters and options."
+echo ""
