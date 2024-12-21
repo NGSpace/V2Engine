@@ -16,7 +16,7 @@ This is pure Java, no helper dependencies or smt.
 
 # Installation methods:
 
-Requires Java 21 to be installed (For windows users)[https://www.openlogic.com/openjdk-downloads?field_java_parent_version_target_id=828&field_operating_system_target_id=436&field_architecture_target_id=391&field_java_package_target_id=401].
+Requires Java 21 to be installed, [JRE 21 For windows users](https://www.openlogic.com/openjdk-downloads?field_java_parent_version_target_id=828&field_operating_system_target_id=436&field_architecture_target_id=391&field_java_package_target_id=401).
 
 1. (Unix) Using the install script remotely: `bash <(wget -qO- https://raw.githubusercontent.com/NGSpace/V2Engine/refs/heads/main/install.sh)`
 2. (Unix) Using the install script locally: Download it from git and run it
