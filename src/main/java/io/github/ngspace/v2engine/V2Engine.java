@@ -15,8 +15,7 @@ public class V2Engine {
 	public static CachedReader reader = new CachedReader();
 	
     public static void main(String[] args) throws IOException, CompileException {
-    	String file = args[0];
-    	v2compiler.buildRuntime(reader.getFile(file), file).execute();
+    	v2compiler.buildRuntime(reader.getFile(args[0]), args[0]).execute();
     }
 
 	public static void log(Object string) {System.out.println(string);}
