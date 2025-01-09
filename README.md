@@ -47,7 +47,7 @@ import ~/Desktop/import.v2;
 
 r=11;
 log(str(r,true));
-log(testfunc("20cm"));
+log(testfunc("strings"));
 warn("I love colors");
 err("angy");
 ```
@@ -55,7 +55,7 @@ err("angy");
 import.v2:
 ```
 #def testfunc, test
-	return "result=" + pp;
+	return "result=" + test;
 	
 #if true
 	log("test");
